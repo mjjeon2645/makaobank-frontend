@@ -26,6 +26,14 @@ export default class BankStore {
       return '';
     }
   }
+
+  async fetchAccount() {
+    const { name, accountNumber, amount } = await apiService.fetchAccount();
+
+    this.name = name;
+    this.accountNumber = accountNumber;
+    this.amount = amount;
+  }
 }
 
 export const bankStore = new BankStore();
