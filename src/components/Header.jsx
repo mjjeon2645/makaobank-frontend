@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
+import PrimaryButton from './ui/PrimaryButton';
 
 const Container = styled.header`
 width: 100%;
 padding: 1em;
-background: #EEE;
+background: ${(props) => props.theme.colors.panel};
 
   nav {
     ul {

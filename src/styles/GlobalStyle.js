@@ -7,8 +7,13 @@ const GlobalStyle = createGlobalStyle`
     margin: 0
   }
 
+  body {
+    background: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.text};
+  }
+
   a {
-    color: #000;
+    color: ${(props) => props.theme.colors.text};
   }
 
   ul {
