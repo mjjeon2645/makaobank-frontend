@@ -1,8 +1,26 @@
 import { Link } from 'react-router-dom';
 
+import styled from 'styled-components';
+
+const Container = styled.header`
+width: 100%;
+padding: 1em;
+background: #EEE;
+
+  nav {
+    ul {
+      display: flex;
+    }
+
+    li {
+      margin-right: .5em;
+    }
+  }
+`;
+
 export default function Header() {
   return (
-    <header>
+    <Container>
       <nav>
         <ul>
           <li>
@@ -19,6 +37,6 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-    </header>
+    </Container>
   );
 }
