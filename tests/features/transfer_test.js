@@ -1,4 +1,4 @@
-Feature('Transfer');
+Feature('송금 - 고객은 본인 계좌에서 다른 사람에게 돈을 보내기 위해 송금 서비스를 이용할 수 있다.');
 
 // Given
 Before(({ I }) => {
