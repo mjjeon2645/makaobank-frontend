@@ -21,19 +21,17 @@ const Main = styled.main`
 export default function App() {
   const [themeName, setThemeName] = useLocalStorage('theme', 'default');
 
-  const theme = themeName === 'dark' ? darkTheme : defaultTheme;
-
-  const toggleTheme = () => {
+  const handleClick = () => {
     setThemeName(themeName === 'default' ? 'dark' : 'default');
   };
 
+  const theme = themeName === 'dark' ? darkTheme : defaultTheme;
   return (
     <ThemeProvider theme={theme}>
       <Reset />
       <GlobalStyle />
       <Header />
-      <PrimaryButton type="button" onClick={toggleTheme}>화면모드 바꾸기</PrimaryButton>
-      {/* <SecondaryButton type="button" onClick={handleClick}>ToggleButton</SecondaryButton> */}
+      <PrimaryButton type="button" onClick={handleClick}>Toggle Theme</PrimaryButton>
       <Main>
         <Routes>
           <Route path="/" element={<HomePage />} />
