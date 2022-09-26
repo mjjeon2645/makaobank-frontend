@@ -2,10 +2,24 @@ import { apiService } from '../services/ApiService';
 
 export default class BankStore {
   constructor() {
+    this.listeners = new Set();
+
     this.accountNumber = '';
     this.name = '';
     this.amount = 0;
     this.transactions = [];
+  }
+
+  subscribe(listener) {
+    this.listeners.add(listener);
+  }
+
+  unsubscribe(listener) {
+    this.listeners.delete(listener);
+  }
+
+  publish() {
+    this.listeners.forEach((listener) => listener());
   }
 
   // TODO. 서버에서 가져와야 진짜!
@@ -33,6 +47,8 @@ export default class BankStore {
     this.name = name;
     this.accountNumber = accountNumber;
     this.amount = amount;
+
+    this.publish();
   }
 }
 

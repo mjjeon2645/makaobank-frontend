@@ -1,3 +1,6 @@
+import useBankStore from '../hooks/useBankStore';
+import numberFormat from '../utils/numberFormat';
+
 export default function Account() {
   const bankStore = useBankStore();
 
@@ -9,8 +12,17 @@ export default function Account() {
         {' '}
         {bankStore.name}
       </p>
-      <p>계좌번호 : </p>
-      <p>잔액 : </p>
+      <p>
+        계좌번호 :
+        {' '}
+        {bankStore.accountNumber}
+      </p>
+      <p>
+        잔액 :
+        {' '}
+        {numberFormat(bankStore.amount)}
+        원
+      </p>
     </div>
   );
 }
