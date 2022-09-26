@@ -53,6 +53,7 @@
     "react-router-dom": "^6.4.1",
     "styled-components": "^5.3.5",
     "styled-react": "^0.4.0",
-    "styled-reset": "^4.4.2"
+    "styled-reset": "^4.4.2",
+    "usehooks-ts": "^2.7.1"
   }
 }

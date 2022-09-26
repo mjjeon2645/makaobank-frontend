@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
-import { useState } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
 import Header from './components/Header';
 import AccountPage from './pages/AccountPage';
 
@@ -19,10 +19,12 @@ const Main = styled.main`
 `;
 
 export default function App() {
-  const [theme, setTheme] = useState(defaultTheme);
+  const [themeName, setThemeName] = useLocalStorage('theme', 'default');
 
-  const handleClick = () => {
-    setTheme(theme === defaultTheme ? darkTheme : defaultTheme);
+  const theme = themeName === 'dark' ? darkTheme : defaultTheme;
+
+  const toggleTheme = () => {
+    setThemeName(themeName === 'default' ? 'dark' : 'default');
   };
 
   return (
@@ -30,7 +32,7 @@ export default function App() {
       <Reset />
       <GlobalStyle />
       <Header />
-      <PrimaryButton type="button" onClick={handleClick}>화면모드 바꾸기</PrimaryButton>
+      <PrimaryButton type="button" onClick={toggleTheme}>화면모드 바꾸기</PrimaryButton>
       {/* <SecondaryButton type="button" onClick={handleClick}>ToggleButton</SecondaryButton> */}
       <Main>
         <Routes>
