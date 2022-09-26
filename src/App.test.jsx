@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
+
+import { MemoryRouter } from 'react-router-dom';
+
 import App from './App';
 
 test('App', () => {
-  render(<App />);
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
 
-  screen.getByText(/Hello/);
+  screen.getByText(/마카오뱅크에서/);
 });

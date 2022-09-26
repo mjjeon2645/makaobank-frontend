@@ -5,5 +5,5 @@ Scenario('Visit the Home Page without Login', ({ I }) => {
   I.amOnPage('/');
 
   // Then
-  I.see('Hello, world!');
+  I.see('마카오뱅크에서');
 });
