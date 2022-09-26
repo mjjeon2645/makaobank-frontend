@@ -17,12 +17,16 @@ export default function Account() {
         {' '}
         {bankStore.accountNumber}
       </p>
-      <p>
-        잔액 :
-        {' '}
-        {numberFormat(bankStore.amount)}
-        원
-      </p>
+      {bankStore.amount > 0 ? (
+        <p>
+          잔액 :
+          {' '}
+          {numberFormat(bankStore.amount)}
+          원
+        </p>
+      ) : (
+        <p>잔액이 없습니다</p>
+      )}
     </div>
   );
 }
