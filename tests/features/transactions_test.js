@@ -19,12 +19,12 @@ Scenario('거래내역이 없는 경우', ({ I }) => {
 
 Scenario('거래 내역이 있는 경우', ({ I }) => {
   // Given
-  I.transfer({ to: '5678', amount: 3000, name: 'tester' });
+  I.transfer({ to: '5678', amount: 5000, name: 'tester' });
 
   // When
   I.amOnPage('/');
   I.click('거래내역');
 
   // Then
-  I.see('송금\t5678\t3,000');
+  I.see('송금\t5678\t5,000');
 });

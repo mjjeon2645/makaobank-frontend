@@ -72,6 +72,14 @@ export default class BankStore {
     this.publish();
   }
 
+  async fetchTransactions() {
+    this.transactions = [];
+    this.publish();
+
+    this.transactions = await apiService.fetchTransactions();
+    this.publish();
+  }
+
   get isTransferProcessing() {
     return this.transferState === 'processing';
   }
