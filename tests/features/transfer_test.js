@@ -11,9 +11,9 @@ Before(({ I }) => {
   I.setupDatabase();
   I.changeAmount({ userId: 1, amount });
 
-  I.amOnPage('/');
+  I.login('1234');
 
-  // TODO: 로그인
+  I.amOnPage('/');
 
   I.click('송금');
 });
@@ -30,7 +30,6 @@ Scenario('올바르게 송금이 된 경우', ({ I }) => {
   // Then
   I.see('✅ 송금 완료!');
 
-  // TODO. 잔액확인 시 이 실제로 줄어있어야 함.
   I.click('잔액확인');
   I.see(`잔액 : ${numberFormat(amount - transferAmount)}원`);
 });

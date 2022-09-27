@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent, render, screen, waitFor,
+} from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../styles/defaultTheme';
 import LoginForm from './LoginForm';
 
-test('LoginForm', () => {
+const navigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useNavigate() {
+    return navigate;
+  },
+}));
+
+test('LoginForm', async () => {
   render((
     <ThemeProvider theme={defaultTheme}>
       <LoginForm />
@@ -22,4 +32,8 @@ test('LoginForm', () => {
   });
 
   fireEvent.click(screen.getByText('로그인하기'));
+
+  await waitFor(() => {
+    expect(navigate).toBeCalledWith('/');
+  });
 });

@@ -13,6 +13,7 @@ module.exports = () => actor({
       `${backdoorBaseUrl}/change-amount`,
       `?userId=${userId}&amount=${amount}`,
     ].join(''));
+    this.waitForText('ok');
   },
 
   transfer({ to, amount, name }) {
@@ -24,5 +25,17 @@ module.exports = () => actor({
     this.click('보내기');
 
     this.waitForText('✅ 송금 완료!');
+  },
+
+  login(accountNumber) {
+    this.amOnPage('/login');
+
+    this.fillField('계좌번호', accountNumber);
+    this.fillField('비밀번호', 'password');
+
+    this.click('[type=submit]');
+    // this.click('로그인하기');
+
+    this.waitForText('로그아웃');
   },
 });

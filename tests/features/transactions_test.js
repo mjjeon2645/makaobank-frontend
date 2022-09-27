@@ -5,7 +5,7 @@ Before(({ I }) => {
   I.setupDatabase();
   I.changeAmount({ userId: 1, amount: 1000000 });
 
-  // TODO: 로그인
+  I.login('1234');
 });
 
 Scenario('거래내역이 없는 경우', ({ I }) => {

@@ -54,6 +54,7 @@ export default class BankStore {
 
   async requestTransfer({ to, amount, name }) {
     this.changeTransferState('processing');
+
     try {
       await apiService.createTransaction({ to, amount, name });
       this.changeTransferState('success');
