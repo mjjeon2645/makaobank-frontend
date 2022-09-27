@@ -7,6 +7,8 @@ const darkTheme = {
     primaryButtonText: '#FFF',
     secondaryButton: '#8474B1',
     secondaryButtonText: '#FFF',
+    disabled: '#888',
+    disabledText: '#FFF',
   },
 };
 

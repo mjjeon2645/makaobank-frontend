@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import server from '../testServer';
 import BankStore from './BankStore';
 
@@ -20,6 +21,8 @@ import BankStore from './BankStore';
 // 2. __mocks__ 폴더에 완벽한 모킹파일이 있으니 이렇게 간단하게 써줘도 됨
 // jest.mock('../services/ApiService');
 
+// 3. MSW 사용하여 모킹. 현재 사용중
+
 const context = describe;
 
 beforeAll(() => {
@@ -40,6 +43,7 @@ describe('BankStore', () => {
   beforeEach(() => {
     bankStore = new BankStore();
   });
+
   describe('login', () => {
     context('with correct account number and password', () => {
       it('loads account information', async () => {
@@ -60,13 +64,67 @@ describe('BankStore', () => {
     });
   });
 
-  describe('fetch account information', () => {
+  describe('fetchAccount', () => {
     it('sets account information', async () => {
       await bankStore.fetchAccount();
 
       expect(bankStore.name).toBe('tester');
       expect(bankStore.accountNumber).toBe('1234');
       expect(bankStore.amount).toBe(100_000);
+    });
+  });
+
+  describe('requestTransfer', () => {
+    context('when request is successful', () => {
+      async function request() {
+        await bankStore.requestTransfer({
+          to: '1234',
+          amount: 100,
+          name: 'test',
+        });
+      }
+
+      it('sets transfer state to "processing" and "success"', async () => {
+        request();
+
+        expect(bankStore.isTransferProcessing).toBeTruthy();
+
+        await waitFor(() => {
+          expect(bankStore.isTransferSuccess).toBeTruthy();
+        });
+      });
+
+      it('does not set error message"', async () => {
+        request();
+
+        expect(bankStore.errorMessage).toBeFalsy();
+      });
+    });
+
+    context('when request is failed', () => {
+      async function request() {
+        await bankStore.requestTransfer({
+          to: '1234',
+          amount: -100,
+          name: 'test',
+        });
+      }
+
+      it('sets transfer state to "processing" and "fail"', async () => {
+        request();
+
+        expect(bankStore.isTransferProcessing).toBeTruthy();
+
+        await waitFor(() => {
+          expect(bankStore.isTransferFail).toBeTruthy();
+        });
+      });
+
+      it('sets error message', async () => {
+        await request();
+
+        expect(bankStore.errorMessage).toBeTruthy();
+      });
     });
   });
 });
