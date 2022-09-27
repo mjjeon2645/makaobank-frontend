@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import { useLocalStorage } from 'usehooks-ts';
+import { useEffect } from 'react';
 import Header from './components/Header';
 import AccountPage from './pages/AccountPage';
 
@@ -13,6 +14,7 @@ import darkTheme from './styles/darkTheme';
 import GlobalStyle from './styles/GlobalStyle';
 import PrimaryButton from './components/ui/PrimaryButton';
 import LoginPage from './pages/LoginPage';
+import { apiService } from './services/ApiService';
 
 const Main = styled.main`
   padding: 1em;
@@ -20,6 +22,11 @@ const Main = styled.main`
 
 export default function App() {
   const [themeName, setThemeName] = useLocalStorage('theme', 'default');
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  useEffect(() => {
+    apiService.setAccessToken(accessToken);
+  }, [accessToken]);
 
   const handleClick = () => {
     setThemeName(themeName === 'default' ? 'dark' : 'default');
