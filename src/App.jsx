@@ -12,7 +12,7 @@ import defaultTheme from './styles/defaultTheme';
 import darkTheme from './styles/darkTheme';
 import GlobalStyle from './styles/GlobalStyle';
 import PrimaryButton from './components/ui/PrimaryButton';
-import SecondaryButton from './components/ui/SecondaryButton';
+import LoginPage from './pages/LoginPage';
 
 const Main = styled.main`
   padding: 1em;
@@ -38,6 +38,7 @@ export default function App() {
           <Route path="/account" element={<AccountPage />} />
           <Route path="/transfer" element={<TransferPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Main>
     </ThemeProvider>
