@@ -14,4 +14,15 @@ module.exports = () => actor({
       `?userId=${userId}&amount=${amount}`,
     ].join(''));
   },
+
+  transfer({ to, amount, name }) {
+    this.amOnPage('/transfer');
+
+    this.fillField('받는 분 계좌번호 :', to);
+    this.fillField('보낼금액(원) :', amount);
+    this.fillField('받는 분 통장 표시 :', name);
+    this.click('보내기');
+
+    this.waitForText('✅ 송금 완료!');
+  },
 });
