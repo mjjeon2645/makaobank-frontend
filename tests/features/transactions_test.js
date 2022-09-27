@@ -23,17 +23,17 @@ Before(({ I }) => {
 Scenario('거래 내역이 있는 경우', ({ I }) => {
   // Given
   I.click('송금');
-  I.fillField('받는 분 계좌번호', '1234567890');
-  I.fillField('보낼금액(원)', '3000');
-  I.fillField('받는 분 통장 표시', 'tester');
+  I.fillField('받는 분 계좌번호 :', '5678');
+  I.fillField('보낼금액(원) :', 3000);
+  I.fillField('받는 분 통장 표시 :', 'tester');
   I.click('보내기');
 
-  I.waitForText('계좌 이체 성공');
+  I.waitForText('✅ 송금 완료!');
 
   // When
   I.amOnPage('/');
   I.click('거래내역');
 
   // Then
-  I.see('송금\t1234567890\t3,000');
+  I.see('송금\t5678\t3,000');
 });

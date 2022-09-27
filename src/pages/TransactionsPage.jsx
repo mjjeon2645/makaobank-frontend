@@ -11,7 +11,7 @@ export default function TransactionsPage() {
       <tbody>
         <tr>
           <td>송금</td>
-          <td>1234567890</td>
+          <td>5678</td>
           <td>3,000</td>
         </tr>
       </tbody>
