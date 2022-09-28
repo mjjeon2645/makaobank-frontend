@@ -3,13 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'usehooks-ts';
 import useBankStore from '../hooks/useBankStore';
-import useForceUpdate from '../hooks/useForceUpdate';
 import PrimaryButton from './ui/PrimaryButton';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
-  const forceUpdate = useForceUpdate();
 
   const [, setAccessToken] = useLocalStorage('accessToken', '');
 

@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import useBankStore from '../hooks/useBankStore';
+import numberFormat from '../utils/numberFormat';
 import PrimaryButton from './ui/PrimaryButton';
 
 const Error = styled.div`
@@ -30,9 +31,16 @@ export default function TransferForm() {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register('accountNumber', { required: true })}
         />
+        {errors.accountNumber || bankStore.isTransferFail ? null
+          : (<p>하이픈(-) 제외 숫자 8글자를 입력하세요</p>)}
         {errors.accountNumber ? (
           <Error>계좌번호를 입력해 주세요</Error>
         ) : null}
+        {bankStore.isTransferFail ? (
+          <Error>
+            <p>{bankStore.errorMessage}</p>
+          </Error>
+        ) : (null)}
       </div>
       <div>
         <label htmlFor="input-amount">보낼금액&#40;원&#41; &#58;</label>
@@ -44,7 +52,14 @@ export default function TransferForm() {
         />
         {errors.amount ? (
           <Error>금액을 입력해 주세요</Error>
-        ) : null}
+        ) : (
+          <p>
+            내 계좌 잔액:
+            {' '}
+            {numberFormat(bankStore.amount)}
+            원
+          </p>
+        )}
       </div>
       <div>
         <label htmlFor="input-name">받는 분 통장 표시 &#58;</label>
@@ -55,7 +70,7 @@ export default function TransferForm() {
         />
         {errors.name ? (
           <Error>입금 받는 분의 통장에 표시될 이름을 입력하세요</Error>
-        ) : null}
+        ) : <p>입금 받는 분의 통장에 표시될 이름을 입력하세요</p>}
       </div>
       <PrimaryButton type="submit" disabled={bankStore.isTransferProcessing}>보내기</PrimaryButton>
       {bankStore.isTransferProcessing ? (

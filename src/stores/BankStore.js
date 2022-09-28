@@ -91,6 +91,7 @@ export default class BankStore {
     } catch (e) {
       const { message } = e.response.data;
       this.changeTransferState('fail', { errorMessage: message });
+      setTimeout(() => this.changeTransferState(''), 1500);
     }
   }
 
