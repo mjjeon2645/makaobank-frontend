@@ -12,6 +12,9 @@ export default class BankStore {
     this.transferState = '';
 
     this.errorMessage = '';
+
+    this.signUpState = '';
+    this.signUpErrorMessage = '';
   }
 
   subscribe(listener) {
@@ -45,16 +48,28 @@ export default class BankStore {
   async requestSignUp({
     name, accountNumber, password, checkPassword,
   }) {
-    const newAccount = await apiService.createAccount({
-      name, accountNumber, password, checkPassword,
-    });
+    try {
+      const newAccount = await apiService.createAccount({
+        name, accountNumber, password, checkPassword,
+      });
 
-    this.name = newAccount.userName;
-    this.accountNumber = newAccount.userAccountNumber;
+      this.name = newAccount.userName;
+      this.accountNumber = newAccount.userAccountNumber;
 
-    const { userAccountNumber } = newAccount;
+      const { userAccountNumber } = newAccount;
 
-    return userAccountNumber;
+      return userAccountNumber;
+    } catch (e) {
+      const { message } = e.response.data;
+      this.changeSignUpState('fail', { errorMessage: message });
+      return '';
+    }
+  }
+
+  changeSignUpState(state, { errorMessage = '' }) {
+    this.siggUpState = state;
+    this.signUpErrorMessage = errorMessage;
+    this.publish();
   }
 
   async fetchAccount() {
@@ -103,6 +118,10 @@ export default class BankStore {
 
   get isTransferFail() {
     return this.transferState === 'fail';
+  }
+
+  get isCheckPasswordRight() {
+    return this.signUpState === 'fail';
   }
 }
 

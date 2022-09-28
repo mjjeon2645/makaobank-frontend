@@ -39,8 +39,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <Reset />
       <GlobalStyle />
-      <Header />
-      <PrimaryButton type="button" onClick={handleClick}>Toggle Theme</PrimaryButton>
+      <Header handleThemeClick={handleClick} />
       <Main>
         <Routes>
           <Route path="/" element={<HomePage />} />

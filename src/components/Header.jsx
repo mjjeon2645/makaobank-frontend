@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -20,7 +21,7 @@ background: ${(props) => props.theme.colors.panel};
   }
 `;
 
-export default function Header() {
+export default function Header({ handleThemeClick }) {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
   const navigate = useNavigate();
 
@@ -47,10 +48,19 @@ export default function Header() {
               <li>
                 <Link to="/transactions">거래내역</Link>
               </li>
-              <li>
-                <PrimaryButton type="button" onClick={handleLogout}>로그아웃</PrimaryButton>
-              </li>
             </>
+          ) : ('')}
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li>
+            <PrimaryButton type="button" onClick={handleThemeClick}>Toggle</PrimaryButton>
+          </li>
+          {accessToken ? (
+            <li>
+              <PrimaryButton type="button" onClick={handleLogout}>로그아웃</PrimaryButton>
+            </li>
           ) : (
             <>
               <li>

@@ -24,8 +24,6 @@ export default function SignUpForm() {
     }
   };
 
-  const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -33,16 +31,8 @@ export default function SignUpForm() {
         <input
           id="input-name"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register(
-            'name',
-            {
-              required: { value: true, message: '이름을 입력해주세요' },
-              minLength: { value: 3, message: '3~7자까지 한글만 사용 가능' },
-              maxLength: { value: 7, message: '3~7자까지 한글만 사용 가능' },
-            },
-          )}
+          {...register('name', { required: { value: true, message: '이름을 입력해주세요' } })}
         />
-        {/* {errors.name?.type === 'required' && <p role="alert">Hi</p>} */}
         {errors.name ? (
           <p>{errors.name.message}</p>
         ) : (
@@ -61,11 +51,6 @@ export default function SignUpForm() {
                 value: true,
                 message: '계좌번호로 사용될 숫자를 입력해주세요(8글자)',
               },
-              maxLength: {
-                value: 8,
-                message: '로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)',
-              },
-
             },
           )}
         />
@@ -80,7 +65,15 @@ export default function SignUpForm() {
         <input
           id="input-password"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register('password', { pattern: /[1-9]{3}/ })}
+          {...register(
+            'password',
+            {
+              required: {
+                value: true,
+                message: '비밀번호를 입력해주세요',
+              },
+            },
+          )}
         />
         {errors.password ? (
           <p>{errors.password.message}</p>
@@ -93,13 +86,16 @@ export default function SignUpForm() {
         <input
           id="input-check-password"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register('checkPassword', { required: true })}
+          {...register('checkPassword', {
+            required: {
+              value: true,
+              message: '비밀번호를 입력해주세요',
+            },
+          })}
         />
         {errors.checkPassword ? (
           <p>{errors.checkPassword.message}</p>
-        ) : (
-          null
-        )}
+        ) : (null)}
       </div>
       <PrimaryButton type="submit">회원가입</PrimaryButton>
     </form>
