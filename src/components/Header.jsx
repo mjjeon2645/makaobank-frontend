@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
@@ -22,9 +22,11 @@ background: ${(props) => props.theme.colors.panel};
 
 export default function Header() {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setAccessToken('');
+    navigate('/');
   };
 
   return (
