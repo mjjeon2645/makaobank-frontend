@@ -18,7 +18,6 @@ export default function TransferForm() {
   const onSubmit = async (data) => {
     const { accountNumber, amount, name } = data;
 
-    // 송금 요청에 대한 처리는 bankStore의 담당
     await bankStore.requestTransfer({ to: accountNumber, amount, name });
   };
 

@@ -11,9 +11,8 @@ export default function LoginForm() {
 
   const bankStore = useBankStore();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // console.log에 acceessToken 왜 안받아와지는건지 트러블슈팅 해야 함(브라우저에서는 되는데..)
   const onSubmit = async (data) => {
     const { accountNumber, password } = data;
     const accessToken = await bankStore.login({ accountNumber, password });
@@ -24,6 +23,10 @@ export default function LoginForm() {
     }
   };
 
+  const handleGoingSignUpPage = () => {
+    navigate('/signup');
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -32,6 +35,7 @@ export default function LoginForm() {
           <label htmlFor="input-account-number">계좌번호</label>
           <input
             id="input-account-number"
+            placeholder="아이디(계좌번호)"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register('accountNumber', { required: true })}
           />
@@ -40,6 +44,7 @@ export default function LoginForm() {
           <label htmlFor="input-password">비밀번호</label>
           <input
             id="input-password"
+            placeholder="비밀번호"
             type="password"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register('password', { required: true })}
@@ -49,6 +54,9 @@ export default function LoginForm() {
           로그인하기
         </PrimaryButton>
       </form>
+      <PrimaryButton type="button" onClick={handleGoingSignUpPage}>
+        회원가입
+      </PrimaryButton>
     </div>
   );
 }

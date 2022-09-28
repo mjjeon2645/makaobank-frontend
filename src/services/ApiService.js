@@ -32,7 +32,6 @@ export default class ApiService {
       name, accountNumber, password, checkPassword,
     });
 
-    console.log(`${data}apiservice쪽`);
     return data;
   }
 

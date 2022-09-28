@@ -37,8 +37,12 @@ export default class BankStore {
 
       return accessToken;
     } catch (e) {
-      return '';
+      const { message } = e.response.data;
     }
+  }
+
+  changeLoginState() {
+
   }
 
   // eslint-disable-next-line class-methods-use-this
