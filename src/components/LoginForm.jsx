@@ -18,10 +18,6 @@ export default function LoginForm() {
     const { accountNumber, password } = data;
     const accessToken = await bankStore.login({ accountNumber, password });
 
-    /* ************************ */
-    console.log(`제발나와라!!!${accessToken}`);
-    /* ************************ */
-
     if (accessToken) {
       setAccessToken(accessToken);
       navigate('/');

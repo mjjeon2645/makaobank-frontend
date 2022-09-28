@@ -15,6 +15,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import PrimaryButton from './components/ui/PrimaryButton';
 import LoginPage from './pages/LoginPage';
 import { apiService } from './services/ApiService';
+import SignUpPage from './pages/SignUpPage';
 
 const Main = styled.main`
   padding: 1em;
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/account" element={<AccountPage />} />
           <Route path="/transfer" element={<TransferPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Main>

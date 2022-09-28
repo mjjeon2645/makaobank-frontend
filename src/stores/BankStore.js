@@ -26,7 +26,6 @@ export default class BankStore {
     this.listeners.forEach((listener) => listener());
   }
 
-  // TODO. 서버에서 가져와야 진짜!
   async login({ accountNumber, password }) {
     try {
       const { accessToken, name, amount } = await apiService.postSession({
