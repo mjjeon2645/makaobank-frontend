@@ -16,6 +16,7 @@ import PrimaryButton from './components/ui/PrimaryButton';
 import LoginPage from './pages/LoginPage';
 import { apiService } from './services/ApiService';
 import SignUpPage from './pages/SignUpPage';
+import WelcomePage from './pages/WelcomePage';
 
 const Main = styled.main`
   padding: 1em;
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
         </Routes>
       </Main>
     </ThemeProvider>

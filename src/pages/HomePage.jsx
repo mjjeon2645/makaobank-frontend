@@ -1,13 +1,9 @@
-import SecondaryButton from '../components/ui/SecondaryButton';
-import { bankStore } from '../stores/BankStore';
+import { useNavigate } from 'react-router-dom';
+import PrimaryButton from '../components/ui/PrimaryButton';
 
-// TODO. 로그인 버튼이 여기에 있으면 안됨. 로그인은 새로운 별도의 페이지로 만들어주는게 나을 것 같다.
-
+// TODO. 로그인하지 않았을 경우 송금하기, 거래내역조회를 누르면 페이지이동을 하지 말아야 함
 export default function HomePage() {
-  // const handleLogin = () => {
-  //   bankStore.login({ accountNumber: '1234', password: 'password' });
-  // };
-
+  const navigate = useNavigate();
   return (
     <div>
       <div>
@@ -16,16 +12,11 @@ export default function HomePage() {
       </div>
       <ul>
         <li>
-          송금하기
+          <PrimaryButton type="button" onClick={() => navigate('/transfer')}>송금하기</PrimaryButton>
         </li>
         <li>
-          거래내역조회
+          <PrimaryButton type="button" onClick={() => navigate('/transactions')}>거래내역조회</PrimaryButton>
         </li>
-        {/* <li>
-          <SecondaryButton type="button" onClick={handleLogin}>
-            로그인
-          </SecondaryButton>
-        </li> */}
       </ul>
     </div>
   );

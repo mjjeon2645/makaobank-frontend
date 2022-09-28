@@ -41,6 +41,22 @@ export default class BankStore {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async requestSignUp({
+    name, accountNumber, password, checkPassword,
+  }) {
+    const newAccount = await apiService.createAccount({
+      name, accountNumber, password, checkPassword,
+    });
+
+    this.name = newAccount.userName;
+    this.accountNumber = newAccount.userAccountNumber;
+
+    const { userAccountNumber } = newAccount;
+
+    return userAccountNumber;
+  }
+
   async fetchAccount() {
     const { name, accountNumber, amount } = await apiService.fetchAccount();
 

@@ -15,19 +15,11 @@ export default function SignUpForm() {
       name, accountNumber, password, checkPassword,
     } = data;
 
-    // 언제나 그랬듯이 계정 생성 요청에 대한 처리는 bankStore의 담당이 아닐까?
-
-    const newAccount = await bankStore.requestSignUp({
+    const userAccountNumber = await bankStore.requestSignUp({
       name, accountNumber, password, checkPassword,
     });
 
-    /* ************************ */
-    console.log(`제발나와라!!!${newAccount}`);
-    /* ************************ */
-
-    // 새로운 계좌가 생성되었을 경우 웰컴 페이지로 이동한 다음, 그 웰컴페이지에
-    // 로그인하기 버튼을 눌러서 로그인페이지로 이동할 수 있도록 한다.
-    if (newAccount) {
+    if (userAccountNumber) {
       navigate('/welcome');
     }
   };
@@ -48,7 +40,7 @@ export default function SignUpForm() {
           id="input-account-number"
           type="number"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register('accoutNumber', { required: true })}
+          {...register('accountNumber', { required: true })}
         />
       </div>
       <div>

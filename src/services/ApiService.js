@@ -24,6 +24,18 @@ export default class ApiService {
     };
   }
 
+  async createAccount({
+    name, accountNumber, password, checkPassword,
+  }) {
+    const url = `${baseUrl}/register`;
+    const { data } = await axios.post(url, {
+      name, accountNumber, password, checkPassword,
+    });
+
+    console.log(`${data}apiservice쪽`);
+    return data;
+  }
+
   async fetchAccount() {
     const url = `${baseUrl}/accounts/me`;
 
