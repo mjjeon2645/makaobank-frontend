@@ -12,14 +12,16 @@ import TransferPage from './pages/TransferPage';
 import defaultTheme from './styles/defaultTheme';
 import darkTheme from './styles/darkTheme';
 import GlobalStyle from './styles/GlobalStyle';
-import PrimaryButton from './components/ui/PrimaryButton';
 import LoginPage from './pages/LoginPage';
 import { apiService } from './services/ApiService';
 import SignUpPage from './pages/SignUpPage';
 import WelcomePage from './pages/WelcomePage';
 
-const Main = styled.main`
-  padding: 1em;
+const Container = styled.div`
+  max-width: 1440px;
+  min-width: 1024px;
+  min-height: 100vh;
+  padding-inline: calc((100% - 1000px) / 2);
 `;
 
 export default function App() {
@@ -36,21 +38,23 @@ export default function App() {
 
   const theme = themeName === 'dark' ? darkTheme : defaultTheme;
   return (
-    <ThemeProvider theme={theme}>
-      <Reset />
-      <GlobalStyle />
-      <Header handleThemeClick={handleClick} />
-      <Main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/transfer" element={<TransferPage />} />
-          <Route path="/transactions" element={<TransactionsPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/welcome" element={<WelcomePage />} />
-        </Routes>
-      </Main>
-    </ThemeProvider>
+    <Container>
+      <ThemeProvider theme={theme}>
+        <Reset />
+        <GlobalStyle />
+        <Header handleThemeClick={handleClick} themeName={themeName} />
+        <div>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/transfer" element={<TransferPage />} />
+            <Route path="/transactions" element={<TransactionsPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/welcome" element={<WelcomePage />} />
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </Container>
   );
 }

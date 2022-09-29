@@ -5,9 +5,15 @@ import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
 import PrimaryButton from './ui/PrimaryButton';
 
+import light from '../assets/sun.png';
+import dark from '../assets/moon.png';
+
 const Container = styled.header`
 width: 100%;
 padding: 1em;
+display: flex;
+justify-content: space-between;
+
 background: ${(props) => props.theme.colors.panel};
 
   nav {
@@ -21,7 +27,36 @@ background: ${(props) => props.theme.colors.panel};
   }
 `;
 
-export default function Header({ handleThemeClick }) {
+const Menus = styled.nav`
+`;
+
+const SubMenus = styled.nav`
+`;
+
+const Menu = styled.span`
+  color: #FFF;
+  text-decoration: none;
+`;
+
+const LightButton = styled.button`
+   background: transparent;
+    border: none;
+    width: 50%;
+    img {
+      width: 50%;
+    }
+`;
+
+const DarkButton = styled.button`
+   background: transparent;
+    border: none;
+    width: 50%;
+    img {
+      width: 50%;
+    }
+`;
+
+export default function Header({ handleThemeClick, themeName }) {
   const [accessToken, setAccessToken] = useLocalStorage('accessToken', '');
   const navigate = useNavigate();
 
@@ -32,31 +67,49 @@ export default function Header({ handleThemeClick }) {
 
   return (
     <Container>
-      <nav>
+      <Menus>
         <ul>
           <li>
-            <Link to="/">홈</Link>
+            <Link to="/">
+              <Menu>홈</Menu>
+            </Link>
           </li>
           {accessToken ? (
             <>
               <li>
-                <Link to="/account">잔액확인</Link>
+                <Link to="/account">
+                  <Menu>잔액확인</Menu>
+                </Link>
               </li>
               <li>
-                <Link to="/transfer">송금</Link>
+                <Link to="/transfer">
+                  <Menu>송금</Menu>
+                </Link>
               </li>
               <li>
-                <Link to="/transactions">거래내역</Link>
+                <Link to="/transactions">
+                  <Menu>거래내역</Menu>
+                </Link>
               </li>
             </>
           ) : ('')}
         </ul>
-      </nav>
-      <nav>
+      </Menus>
+      <SubMenus>
         <ul>
-          <li>
-            <PrimaryButton type="button" onClick={handleThemeClick}>Toggle</PrimaryButton>
-          </li>
+          {themeName === 'default' ? (
+            <li>
+              <LightButton type="button" onClick={handleThemeClick}>
+                <img src={light} alt="" />
+              </LightButton>
+            </li>
+          ) : (
+            <li>
+              <DarkButton type="button" onClick={handleThemeClick}>
+                <img src={dark} alt="" />
+              </DarkButton>
+            </li>
+          )}
           {accessToken ? (
             <li>
               <PrimaryButton type="button" onClick={handleLogout}>로그아웃</PrimaryButton>
@@ -64,15 +117,19 @@ export default function Header({ handleThemeClick }) {
           ) : (
             <>
               <li>
-                <Link to="/signup">회원가입</Link>
+                <Link to="/signup">
+                  <PrimaryButton type="button">회원가입</PrimaryButton>
+                </Link>
               </li>
               <li>
-                <Link to="/login">로그인</Link>
+                <Link to="/login">
+                  <PrimaryButton type="button">로그인</PrimaryButton>
+                </Link>
               </li>
             </>
           )}
         </ul>
-      </nav>
+      </SubMenus>
     </Container>
   );
 }

@@ -35,7 +35,7 @@ export default function SignUpForm() {
       return;
     }
 
-      navigate('/welcome');
+    navigate('/welcome');
   };
 
   return (
@@ -45,11 +45,15 @@ export default function SignUpForm() {
         <label htmlFor="input-name">이름 &#58;</label>
         <input
           id="input-name"
-          // eslint-disable-next-line react/jsx-props-no-spreading
           // {...register('name', { required: true, pattern: /^[ㄱ-ㅎ|가-힣]{3,7}$/})}
-          {...register('name', 
-          { required: { value: true, message: '[에러]이름을 입력해주세요'}, 
-          pattern: {value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '[에러]3~7자까지 한글만 사용 가능'}})}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...register(
+            'name',
+            {
+              required: { value: true, message: '[에러]이름을 입력해주세요' },
+              pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '[에러]3~7자까지 한글만 사용 가능' },
+            },
+          )}
         />
         {errors.name ? (
           <p>{errors.name.message}</p>
@@ -64,8 +68,11 @@ export default function SignUpForm() {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'accountNumber',
-            { required: { value: true, message: '[에러]계좌번호로 사용될 숫자를 입력해주세요(8글자)'}, 
-          pattern: {value: /^[0-9]{8}$/, message: '[에러]로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)'}})}
+            {
+              required: { value: true, message: '[에러]계좌번호로 사용될 숫자를 입력해주세요(8글자)' },
+              pattern: { value: /^[0-9]{8}$/, message: '[에러]로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)' },
+            },
+          )}
         />
         {errors.accountNumber ? (
           <p>{errors.accountNumber.message}</p>
@@ -80,9 +87,14 @@ export default function SignUpForm() {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'password',
-            { required: { value: true, message: '[에러]비밀번호를 입력해주세요'}, 
-          pattern: {value: /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/, 
-          message: '[에러]8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함'}})}
+            {
+              required: { value: true, message: '[에러]비밀번호를 입력해주세요' },
+              pattern: {
+                value: /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/,
+                message: '[에러]8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함',
+              },
+            },
+          )}
         />
         {errors.password ? (
           <p>{errors.password.message}</p>
@@ -105,7 +117,7 @@ export default function SignUpForm() {
         {errors.checkPassword ? (
           <p>{errors.checkPassword.message}</p>
         ) : (
-        <p>{passwordErrorMessage}</p>
+          <p>{passwordErrorMessage}</p>
         )}
       </div>
       <PrimaryButton type="submit">회원가입</PrimaryButton>

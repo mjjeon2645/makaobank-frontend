@@ -11,10 +11,10 @@ export default class BankStore {
 
     this.transferState = '';
 
+    this.errorCode = 0;
     this.errorMessage = '';
 
-    this.signUpState = '';
-    this.signUpErrorMessage = '';
+    this.accessToken = '';
   }
 
   subscribe(listener) {
@@ -38,6 +38,8 @@ export default class BankStore {
       this.name = name;
       this.amount = amount;
 
+      this.accessToken = accessToken;
+
       return accessToken;
     } catch (e) {
       return e.response.data;
@@ -53,6 +55,8 @@ export default class BankStore {
         name, accountNumber, password, checkPassword,
       });
 
+      console.log(newAccount);
+
       this.name = newAccount.userName;
       this.accountNumber = newAccount.userAccountNumber;
 
@@ -65,11 +69,11 @@ export default class BankStore {
     }
   }
 
-  changeSignUpState(state, { errorMessage = '' }) {
-    this.siggUpState = state;
-    this.signUpErrorMessage = errorMessage;
-    this.publish();
-  }
+  // changeSignUpState(state, { errorMessage = '' }) {
+  //   this.siggUpState = state;
+  //   this.signUpErrorMessage = errorMessage;
+  //   this.publish();
+  // }
 
   async fetchAccount() {
     const { name, accountNumber, amount } = await apiService.fetchAccount();
@@ -88,13 +92,15 @@ export default class BankStore {
       await apiService.createTransaction({ to, amount, name });
       this.changeTransferState('success');
     } catch (e) {
-      const { message } = e.response.data;
-      this.changeTransferState('fail', { errorMessage: message });
+      console.log(e.response.data);
+      const { code, message } = e.response.data;
+      this.changeTransferState('fail', { errorCode: code, errorMessage: message });
       setTimeout(() => this.changeTransferState(''), 1500);
     }
   }
 
-  changeTransferState(state, { errorMessage = '' } = {}) {
+  changeTransferState(state, { errorCode = 0, errorMessage = '' } = {}) {
+    this.errorCode = errorCode;
     this.errorMessage = errorMessage;
     this.transferState = state;
     this.publish();
