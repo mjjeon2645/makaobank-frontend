@@ -29,6 +29,7 @@ export default function LoginForm() {
 
     if (result.indexOf('.') === -1) {
       setErrorMessage(result);
+      setTimeout(() => setErrorMessage(''), 2000);
     }
   };
 

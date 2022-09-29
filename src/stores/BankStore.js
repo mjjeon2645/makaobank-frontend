@@ -60,9 +60,8 @@ export default class BankStore {
 
       return userAccountNumber;
     } catch (e) {
-      const { message } = e.response.data;
-      this.changeSignUpState('fail', { errorMessage: message });
-      return '';
+      const{ message } = e.response.data;
+      return message;
     }
   }
 
