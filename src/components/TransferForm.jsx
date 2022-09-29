@@ -7,9 +7,10 @@ import PrimaryButton from './ui/PrimaryButton';
 const Container = styled.div`
   color: #606060;
   padding-inline: calc((100% - 300px) / 2);
+  padding-block: calc((100% - 1000px) / 2);
+ 
   display: flex;
   flex-direction: column;
-
 `;
 
 const Title = styled.h2`
@@ -17,24 +18,40 @@ const Title = styled.h2`
   font-weight: bold;
   font-size: 2em;
   color: #606060;
-  border-bottom: 1px solid #DDD;
+  margin-bottom: 1em;
+  padding-bottom: .5em;
+  border-bottom: 1px solid #A79FFF;
+`;
+
+const Element = styled.div`
+  margin: 1.8em 0;
 `;
 
 const Label = styled.label`
+  display: block;
   font-size: .9em;
   color: #a0a0a0;
   font-weight: bold;
+  margin-bottom: .5em;
 `;
 
 const Field = styled.input`
-  padding-block: .5em;
+  padding-block: .8em;
+  padding-inline: .5em;
+  color: #A0A0A0;
   border: 1px solid #d2d2d2;
   width: 100%;
 `;
 
+const DefaultMeesage = styled.p`
+  font-size: .9em;
+  margin-top: .5em;
+`;
+
 const Error = styled.div`
-  font-weight: bold;
+  font-size: .9em;
   color: #F00;
+  margin-top: .5em;
 `;
 
 export default function TransferForm() {
@@ -42,7 +59,7 @@ export default function TransferForm() {
 
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm();
+  } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     const { accountNumber, amount, name } = data;
@@ -54,10 +71,8 @@ export default function TransferForm() {
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title>송금</Title>
-        <div>
+        <Element>
           <Label htmlFor="input-account">받는 분 계좌번호 &#58;</Label>
-        </div>
-        <div>
           <Field
             id="input-account"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -65,26 +80,24 @@ export default function TransferForm() {
               'accountNumber',
               {
                 required:
-            { value: true, message: '[에러]계좌번호를 입력해주세요' },
+            { value: true, message: '계좌번호를 입력해주세요' },
               },
             )}
           />
-        </div>
-        {errors.accountNumber ? (
-          <Error>{errors.accountNumber.message}</Error>
-        )
-          : (
-            <p>하이픈(-) 제외 숫자 8글자를 입력하세요</p>
-          )}
-        {bankStore.isTransferFail && `${bankStore.errorCode}`.startsWith(1) ? (
-          <Error>
-            <p>{bankStore.errorMessage}</p>
-          </Error>
-        ) : (null)}
-        <div>
+          {errors.accountNumber ? (
+            <Error>{errors.accountNumber.message}</Error>
+          )
+            : (
+              <DefaultMeesage>하이픈(-) 제외 숫자 8글자를 입력하세요</DefaultMeesage>
+            )}
+          {bankStore.isTransferFail && `${bankStore.errorCode}`.startsWith(1) ? (
+            <Error>
+              <p>{bankStore.errorMessage}</p>
+            </Error>
+          ) : (null)}
+        </Element>
+        <Element>
           <Label htmlFor="input-amount">보낼금액&#40;원&#41; &#58;</Label>
-        </div>
-        <div>
           <Field
             id="input-amount"
             type="number"
@@ -94,26 +107,24 @@ export default function TransferForm() {
             { value: true, message: '금액을 입력해주세요' },
             })}
           />
-        </div>
-        {errors.amount ? (
-          <Error>{errors.amount.message}</Error>
-        ) : (
-          <p>
-            내 계좌 잔액:
-            {' '}
-            {numberFormat(bankStore.amount)}
-            원
-          </p>
-        )}
-        {bankStore.isTransferFail && `${bankStore.errorCode}`.startsWith(2) ? (
-          <Error>
-            <p>{bankStore.errorMessage}</p>
-          </Error>
-        ) : (null)}
-        <div>
+          {errors.amount ? (
+            <Error>{errors.amount.message}</Error>
+          ) : (
+            <DefaultMeesage>
+              내 계좌 잔액:
+              {' '}
+              {numberFormat(bankStore.amount)}
+              원
+            </DefaultMeesage>
+          )}
+          {bankStore.isTransferFail && `${bankStore.errorCode}`.startsWith(2) ? (
+            <Error>
+              <p>{bankStore.errorMessage}</p>
+            </Error>
+          ) : (null)}
+        </Element>
+        <Element>
           <Label htmlFor="input-name">받는 분 통장 표시 &#58;</Label>
-        </div>
-        <div>
           <Field
             id="input-name"
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -122,17 +133,17 @@ export default function TransferForm() {
             { value: true, message: '입금 받는 분의 통장에 표시될 이름을 입력하세요' },
             })}
           />
-        </div>
-        {errors.name ? (
-          <Error>{errors.name.message}</Error>
-        ) : <p>입금 받는 분의 통장에 표시될 이름을 입력하세요</p>}
-        <PrimaryButton type="submit" disabled={bankStore.isTransferProcessing}>보내기</PrimaryButton>
-        {bankStore.isTransferProcessing ? (
-          <p>송금 진행중...</p>
-        ) : null}
-        {bankStore.isTransferSuccess ? (
-          <p>✅ 송금 완료!</p>
-        ) : null}
+          {errors.name ? (
+            <Error>{errors.name.message}</Error>
+          ) : <DefaultMeesage>입금 받는 분의 통장에 표시될 이름을 입력하세요</DefaultMeesage>}
+          <PrimaryButton type="submit" disabled={bankStore.isTransferProcessing}>보내기</PrimaryButton>
+          {bankStore.isTransferProcessing ? (
+            <p>송금 진행중...</p>
+          ) : null}
+          {bankStore.isTransferSuccess ? (
+            <p>✅ 송금 완료!</p>
+          ) : null}
+        </Element>
       </form>
     </Container>
   );

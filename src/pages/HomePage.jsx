@@ -7,7 +7,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5em;
+  /* margin-top: 15em; */
+  padding-block: calc((100% - 1000px) / 2);
 `;
 
 const Title = styled.div`

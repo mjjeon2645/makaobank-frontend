@@ -55,8 +55,6 @@ export default class BankStore {
         name, accountNumber, password, checkPassword,
       });
 
-      console.log(newAccount);
-
       this.name = newAccount.userName;
       this.accountNumber = newAccount.userAccountNumber;
 
@@ -64,7 +62,7 @@ export default class BankStore {
 
       return userAccountNumber;
     } catch (e) {
-      const{ message } = e.response.data;
+      const { message } = e.response.data;
       return message;
     }
   }
@@ -92,10 +90,9 @@ export default class BankStore {
       await apiService.createTransaction({ to, amount, name });
       this.changeTransferState('success');
     } catch (e) {
-      console.log(e.response.data);
       const { code, message } = e.response.data;
       this.changeTransferState('fail', { errorCode: code, errorMessage: message });
-      setTimeout(() => this.changeTransferState(''), 1500);
+      setTimeout(() => this.changeTransferState(''), 2000);
     }
   }
 

@@ -1,8 +1,61 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import useBankStore from '../hooks/useBankStore';
 import PrimaryButton from './ui/PrimaryButton';
+
+const Container = styled.form`
+  color: #606060;
+  padding-inline: calc((100% - 450px) / 2);
+  padding-block: calc((100% - 1000px) / 2);
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  color: #606060;
+  border-bottom: 1px solid #A79FFF;
+  padding-bottom: .5em;
+`;
+
+const Element = styled.div`
+  padding: 1em;
+  strong {
+    font-weight: bold;
+  }
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: .9em;
+  color: #a0a0a0;
+  font-weight: bold;
+  margin-bottom: .5em;
+`;
+
+const Field = styled.input`
+  padding-block: .8em;
+  padding-inline: .5em;
+  color: #A0A0A0;
+  border: 1px solid #d2d2d2;
+  width: 100%;
+`;
+
+const DefaultMessage = styled.p`
+  font-size: .9em;
+  color: #A0A0A0;
+  margin-top: .5em;
+`;
+
+const Error = styled.p`
+  font-size: .9em;
+  color: #ff0000;
+  margin-top: .5em;
+`;
 
 export default function SignUpForm() {
   const bankStore = useBankStore();
@@ -12,7 +65,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     const {
@@ -39,88 +92,88 @@ export default function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>SIGN UP</h2>
-      <div>
-        <label htmlFor="input-name">이름 &#58;</label>
-        <input
+    <Container onSubmit={handleSubmit(onSubmit)}>
+      <Title>SIGN UP</Title>
+      <Element>
+        <Label htmlFor="input-name">이름 &#58;</Label>
+        <Field
           id="input-name"
           // {...register('name', { required: true, pattern: /^[ㄱ-ㅎ|가-힣]{3,7}$/})}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'name',
             {
-              required: { value: true, message: '[에러]이름을 입력해주세요' },
-              pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '[에러]3~7자까지 한글만 사용 가능' },
+              required: { value: true, message: '이름을 입력해주세요' },
+              pattern: { value: /^[ㄱ-ㅎ|가-힣]{3,7}$/, message: '3~7자까지 한글만 사용 가능' },
             },
           )}
         />
         {errors.name ? (
-          <p>{errors.name.message}</p>
+          <Error>{errors.name.message}</Error>
         ) : (
-          <p>3~7자까지 한글만 사용 가능</p>
+          <DefaultMessage>3~7자까지 한글만 사용 가능</DefaultMessage>
         )}
-      </div>
-      <div>
-        <label htmlFor="input-account-number">계좌번호 입력 &#58;</label>
-        <input
+      </Element>
+      <Element>
+        <Label htmlFor="input-account-number">계좌번호 입력 &#58;</Label>
+        <Field
           id="input-account-number"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'accountNumber',
             {
-              required: { value: true, message: '[에러]계좌번호로 사용될 숫자를 입력해주세요(8글자)' },
-              pattern: { value: /^[0-9]{8}$/, message: '[에러]로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)' },
+              required: { value: true, message: '계좌번호로 사용될 숫자를 입력해주세요(8글자)' },
+              pattern: { value: /^[0-9]{8}$/, message: '로그인 및 거래시 사용될 계좌번호이며 숫자만 사용 가능(8글자)' },
             },
           )}
         />
         {errors.accountNumber ? (
-          <p>{errors.accountNumber.message}</p>
+          <Error>{errors.accountNumber.message}</Error>
         ) : (
-          <p>{accountNumberErrorMessage}</p>
+          <DefaultMessage>{accountNumberErrorMessage}</DefaultMessage>
         )}
-      </div>
-      <div>
-        <label htmlFor="input-password">비밀번호 &#58;</label>
-        <input
+      </Element>
+      <Element>
+        <Label htmlFor="input-password">비밀번호 &#58;</Label>
+        <Field
           id="input-password"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(
             'password',
             {
-              required: { value: true, message: '[에러]비밀번호를 입력해주세요' },
+              required: { value: true, message: '비밀번호를 입력해주세요' },
               pattern: {
                 value: /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/,
-                message: '[에러]8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함',
+                message: '8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함',
               },
             },
           )}
         />
         {errors.password ? (
-          <p>{errors.password.message}</p>
+          <Error>{errors.password.message}</Error>
         ) : (
-          <p>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</p>
+          <DefaultMessage>8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 함</DefaultMessage>
         )}
-      </div>
-      <div>
-        <label htmlFor="input-check-password">비밀번호 확인 &#58;</label>
-        <input
+      </Element>
+      <Element>
+        <Label htmlFor="input-check-password">비밀번호 확인 &#58;</Label>
+        <Field
           id="input-check-password"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register('checkPassword', {
             required: {
               value: true,
-              message: '[에러]비밀번호를 입력해주세요',
+              message: '비밀번호를 입력해주세요',
             },
           })}
         />
         {errors.checkPassword ? (
-          <p>{errors.checkPassword.message}</p>
+          <Error>{errors.checkPassword.message}</Error>
         ) : (
-          <p>{passwordErrorMessage}</p>
+          <DefaultMessage>{passwordErrorMessage}</DefaultMessage>
         )}
-      </div>
+      </Element>
       <PrimaryButton type="submit">회원가입</PrimaryButton>
-    </form>
+    </Container>
   );
 }

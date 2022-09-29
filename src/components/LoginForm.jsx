@@ -1,9 +1,52 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { useLocalStorage } from 'usehooks-ts';
 import useBankStore from '../hooks/useBankStore';
 import PrimaryButton from './ui/PrimaryButton';
+
+const Container = styled.div`
+  color: #606060;
+  padding-inline: calc((100% - 300px) / 2);
+  padding-block: calc((100% - 1000px) / 2);
+  display: flex;
+  flex-direction: column;
+`;
+
+const Form = styled.form`
+  margin-top: 3em;
+
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  color: #606060;
+  border-bottom: 1px solid #A79FFF;
+  padding-bottom: .5em;
+`;
+
+const Field = styled.input`
+  padding-block: 1em;
+  padding-inline: .7em;
+  margin: .5em 0;
+  border: 1px solid #d2d2d2;
+  width: 100%;
+`;
+
+const Error = styled.p`
+  font-size: .9em;
+  color: #ff0000;
+`;
+
+const GoSignUpButton = styled.button`
+  font-size: 1em;
+  background: none;
+  width: 50%;
+  cursor: pointer;
+`;
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -14,13 +57,12 @@ export default function LoginForm() {
 
   const bankStore = useBankStore();
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
 
   const onSubmit = async (data) => {
     const { accountNumber, password } = data;
     const result = await bankStore.login({ accountNumber, password });
 
-    console.log(result);
     if (result.indexOf('.') !== -1) {
       setAccessToken(result);
       setErrorMessage('');
@@ -39,13 +81,13 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>USER LOGIN</h2>
+    <Container>
+      <Title>USER LOGIN</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="input-account-number">계좌번호</label>
-          <input
+          <Field
             id="input-account-number"
+            name="account"
             placeholder="아이디(계좌번호)"
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...register('accountNumber', {
@@ -56,14 +98,13 @@ export default function LoginForm() {
             })}
           />
           {errors.accountNumber ? (
-            <p>{errors.accountNumber.message}</p>
+            <Error>{errors.accountNumber.message}</Error>
           ) : (
-            <p>{ errorMessage }</p>
+            <Error>{ errorMessage }</Error>
           )}
         </div>
         <div>
-          <label htmlFor="input-password">비밀번호</label>
-          <input
+          <Field
             id="input-password"
             placeholder="비밀번호"
             type="password"
@@ -76,18 +117,18 @@ export default function LoginForm() {
             })}
           />
           {errors.password ? (
-            <p>{errors.password.message}</p>
+            <Error>{errors.password.message}</Error>
           ) : (
-            <p>{ errorMessage }</p>
+            <Error>{ errorMessage }</Error>
           )}
         </div>
         <PrimaryButton type="submit" onClick={() => {}}>
           로그인하기
         </PrimaryButton>
-      </form>
-      <PrimaryButton type="button" onClick={handleGoingSignUpPage}>
+      </Form>
+      <GoSignUpButton type="button" onClick={handleGoingSignUpPage}>
         회원가입
-      </PrimaryButton>
-    </div>
+      </GoSignUpButton>
+    </Container>
   );
 }

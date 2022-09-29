@@ -21,7 +21,7 @@ const Container = styled.div`
   max-width: 1440px;
   min-width: 1024px;
   min-height: 100vh;
-  padding-inline: calc((100% - 1000px) / 2);
+  /* padding-inline: calc((100% - 1000px) / 2); */
 `;
 
 export default function App() {

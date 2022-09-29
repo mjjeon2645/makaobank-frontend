@@ -4,7 +4,8 @@ import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
   color: #606060;
-  padding-inline: calc((100% - 500px) / 2);
+  padding-inline: calc((100% - 300px) / 2);
+  padding-block: calc((100% - 1000px) / 2);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -12,11 +13,22 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
+  display: block;
+  width: 100%;
   font-weight: bold;
   font-size: 2em;
+  border-bottom: 1px solid #A79FFF;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
   color: #606060;
   align-self: center;
-  border-bottom: 1px solid #DDD;
+`;
+
+const Element = styled.p`
+  padding: 1em;
+  strong {
+    font-weight: bold;
+  }
 `;
 
 export default function Account() {
@@ -25,23 +37,23 @@ export default function Account() {
   return (
     <Container>
       <Title>잔액확인</Title>
-      <p>
+      <Element>
         <strong>이름 :</strong>
         {' '}
         {bankStore.name}
-      </p>
-      <p>
+      </Element>
+      <Element>
         <strong>계좌번호 :</strong>
         {' '}
         {bankStore.accountNumber}
-      </p>
+      </Element>
       {bankStore.amount > 0 ? (
-        <p>
+        <Element>
           <strong>잔액 :</strong>
           {' '}
           {numberFormat(bankStore.amount)}
           원
-        </p>
+        </Element>
       ) : (
         <p>잔액이 없습니다</p>
       )}
