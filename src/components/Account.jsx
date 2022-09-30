@@ -3,7 +3,7 @@ import useBankStore from '../hooks/useBankStore';
 import numberFormat from '../utils/numberFormat';
 
 const Container = styled.div`
-  color: #606060;
+  color: ${(props) => props.theme.colors.contentText};
   padding-inline: calc((100% - 300px) / 2);
   padding-block: calc((100% - 1000px) / 2);
   text-align: center;
@@ -20,7 +20,7 @@ const Title = styled.h2`
   border-bottom: 1px solid #A79FFF;
   margin-bottom: 1em;
   padding-bottom: 1em;
-  color: #606060;
+  color: ${(props) => props.theme.colors.titleText};
   align-self: center;
 `;
 

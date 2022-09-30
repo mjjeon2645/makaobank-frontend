@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +8,7 @@ import useBankStore from '../hooks/useBankStore';
 import PrimaryButton from './ui/PrimaryButton';
 
 const Container = styled.div`
-  color: #606060;
+  color: ${(props) => props.theme.colors.contentText};
   padding-inline: calc((100% - 300px) / 2);
   padding-block: calc((100% - 1000px) / 2);
   display: flex;
@@ -16,14 +17,13 @@ const Container = styled.div`
 
 const Form = styled.form`
   margin-top: 3em;
-
 `;
 
 const Title = styled.h2`
   text-align: center;
   font-weight: bold;
   font-size: 2em;
-  color: #606060;
+  color: ${(props) => props.theme.colors.titleText};
   border-bottom: 1px solid #A79FFF;
   padding-bottom: .5em;
 `;
@@ -39,6 +39,8 @@ const Field = styled.input`
 const Error = styled.p`
   font-size: .9em;
   color: #ff0000;
+  margin: 1em 0;
+  height: 1em;
 `;
 
 const GoSignUpButton = styled.button`
@@ -71,7 +73,7 @@ export default function LoginForm() {
 
     if (result.indexOf('.') === -1) {
       setErrorMessage(result);
-      setTimeout(() => setErrorMessage(''), 2000);
+      setTimeout(() => setErrorMessage(''), 3000);
     }
   };
 
@@ -97,11 +99,6 @@ export default function LoginForm() {
               },
             })}
           />
-          {errors.accountNumber ? (
-            <Error>{errors.accountNumber.message}</Error>
-          ) : (
-            <Error>{ errorMessage }</Error>
-          )}
         </div>
         <div>
           <Field
@@ -116,11 +113,14 @@ export default function LoginForm() {
               },
             })}
           />
-          {errors.password ? (
-            <Error>{errors.password.message}</Error>
-          ) : (
-            <Error>{ errorMessage }</Error>
-          )}
+          {errors.accountNumber && errors.password ? (
+            <Error>아이디와 비밀번호를 입력해주세요</Error>
+          ) : errors.accountNumber ? (
+            <Error>{errors.accountNumber.message}</Error>
+          ) : errors.password
+            ? <Error>{errors.password.message}</Error>
+            : null}
+          <Error>{errorMessage}</Error>
         </div>
         <PrimaryButton type="submit" onClick={() => {}}>
           로그인하기

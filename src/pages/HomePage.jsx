@@ -30,6 +30,7 @@ const Buttons = styled.ul`
 
 const Image = styled.img`
   width: 40vh;
+  margin-left: 5em;
 `;
 
 // TODO. 로그인하지 않았을 경우 송금하기, 거래내역조회를 누르면 페이지이동을 하지 말아야 함

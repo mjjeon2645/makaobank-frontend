@@ -5,7 +5,7 @@ import numberFormat from '../utils/numberFormat';
 import PrimaryButton from './ui/PrimaryButton';
 
 const Container = styled.div`
-  color: #606060;
+  color: ${(props) => props.theme.colors.contentText};
   padding-inline: calc((100% - 300px) / 2);
   padding-block: calc((100% - 1000px) / 2);
  
@@ -17,7 +17,7 @@ const Title = styled.h2`
   text-align: center;
   font-weight: bold;
   font-size: 2em;
-  color: #606060;
+  color: ${(props) => props.theme.colors.titleText};
   margin-bottom: 1em;
   padding-bottom: .5em;
   border-bottom: 1px solid #A79FFF;
@@ -30,7 +30,6 @@ const Element = styled.div`
 const Label = styled.label`
   display: block;
   font-size: .9em;
-  color: #a0a0a0;
   font-weight: bold;
   margin-bottom: .5em;
 `;
@@ -38,7 +37,6 @@ const Label = styled.label`
 const Field = styled.input`
   padding-block: .8em;
   padding-inline: .5em;
-  color: #A0A0A0;
   border: 1px solid #d2d2d2;
   width: 100%;
 `;

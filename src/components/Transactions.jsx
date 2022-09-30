@@ -33,7 +33,7 @@ const Table = styled.table`
 `;
 
 const Container = styled.div`
-  color: #606060;
+  color: ${(props) => props.theme.colors.contentText};
   padding-inline: calc((100% - 500px) / 2);
   padding-block: calc((100% - 1000px) / 2);
   display: flex;
@@ -44,23 +44,11 @@ const Title = styled.h2`
   text-align: center;
   font-weight: bold;
   font-size: 2em;
-  color: #606060;
+  color: ${(props) => props.theme.colors.titleText};
   margin-bottom: 1em;
   padding-bottom: .5em;
   border-bottom: 1px solid #A79FFF;
-
 `;
-
-// const TableHead = styled.thead`
-//   background-color: #A79FFF;
-//   color: #FFF;
-
-// `;
-
-// const TableBody = styled.tbody`
-//   text-align: center;
-
-// `;
 
 export default function Transactions() {
   const bankStore = useBankStore();

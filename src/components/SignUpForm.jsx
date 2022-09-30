@@ -6,7 +6,7 @@ import useBankStore from '../hooks/useBankStore';
 import PrimaryButton from './ui/PrimaryButton';
 
 const Container = styled.form`
-  color: #606060;
+  color: ${(props) => props.theme.colors.contentText};
   padding-inline: calc((100% - 450px) / 2);
   padding-block: calc((100% - 1000px) / 2);
   display: flex;
@@ -17,7 +17,7 @@ const Title = styled.h2`
   text-align: center;
   font-weight: bold;
   font-size: 2em;
-  color: #606060;
+  color: ${(props) => props.theme.colors.titleText};
   border-bottom: 1px solid #A79FFF;
   padding-bottom: .5em;
 `;

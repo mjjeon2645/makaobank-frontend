@@ -14,7 +14,9 @@ padding: 1em;
 display: flex;
 justify-content: space-between;
 
-background: ${(props) => props.theme.colors.panel};
+background: linear-gradient( to right, 
+  ${(props) => props.theme.colors.panelStart}, 
+  ${(props) => props.theme.colors.panelEnd} );
 
   nav {
     ul {
