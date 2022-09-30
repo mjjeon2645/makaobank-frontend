@@ -49,12 +49,14 @@ const DefaultMessage = styled.p`
   font-size: .9em;
   color: #A0A0A0;
   margin-top: .5em;
+  margin-bottom: .5em;
 `;
 
 const Error = styled.p`
   font-size: .9em;
   color: #ff0000;
   margin-top: .5em;
+  margin-bottom: .5em;
 `;
 
 export default function SignUpForm() {
@@ -173,7 +175,7 @@ export default function SignUpForm() {
           <DefaultMessage>{passwordErrorMessage}</DefaultMessage>
         )}
       </Element>
-      <PrimaryButton type="submit">회원가입</PrimaryButton>
+      <PrimaryButton type="submit" style={{ padding: '1.2em' }}>회원가입</PrimaryButton>
     </Container>
   );
 }

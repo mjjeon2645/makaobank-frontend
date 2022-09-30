@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     color: ${(props) => props.theme.colors.text};
+    text-decoration: none;
   }
 
   ul {

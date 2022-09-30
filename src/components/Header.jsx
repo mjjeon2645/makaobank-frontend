@@ -30,9 +30,17 @@ background: linear-gradient( to right,
 `;
 
 const Menus = styled.nav`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-left: 5em;
 `;
 
 const SubMenus = styled.nav`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 5em;
 `;
 
 const Menu = styled.span`

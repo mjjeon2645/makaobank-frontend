@@ -45,8 +45,11 @@ const Error = styled.p`
 
 const GoSignUpButton = styled.button`
   font-size: 1em;
+  color: ${(props) => props.theme.colors.contentText};
+  margin-top: 3em;
+  align-self: center;
+  border: none;
   background: none;
-  width: 50%;
   cursor: pointer;
 `;
 
@@ -119,8 +122,7 @@ export default function LoginForm() {
             <Error>{errors.accountNumber.message}</Error>
           ) : errors.password
             ? <Error>{errors.password.message}</Error>
-            : null}
-          <Error>{errorMessage}</Error>
+            : (<Error>{errorMessage}</Error>)}
         </div>
         <PrimaryButton type="submit" onClick={() => {}}>
           로그인하기
