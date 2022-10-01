@@ -14,7 +14,9 @@ padding: 1em;
 display: flex;
 justify-content: space-between;
 
-background: ${(props) => props.theme.colors.panel};
+background: linear-gradient( to right, 
+  ${(props) => props.theme.colors.panelStart}, 
+  ${(props) => props.theme.colors.panelEnd} );
 
   nav {
     ul {
@@ -28,9 +30,17 @@ background: ${(props) => props.theme.colors.panel};
 `;
 
 const Menus = styled.nav`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-left: 5em;
 `;
 
 const SubMenus = styled.nav`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 5em;
 `;
 
 const Menu = styled.span`

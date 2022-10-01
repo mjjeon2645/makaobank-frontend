@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLocalStorage } from 'usehooks-ts';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Main from '../assets/main.png';
 
@@ -7,7 +8,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-top: 15em; */
   padding-block: calc((100% - 1000px) / 2);
 `;
 
@@ -30,11 +30,32 @@ const Buttons = styled.ul`
 
 const Image = styled.img`
   width: 40vh;
+  margin-left: 5em;
 `;
 
-// TODO. 로그인하지 않았을 경우 송금하기, 거래내역조회를 누르면 페이지이동을 하지 말아야 함
 export default function HomePage() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
   const navigate = useNavigate();
+
+  const handleGoTransfer = () => {
+    if (accessToken) {
+      navigate('/transfer');
+      return;
+    }
+
+    alert('로그인을 해 주세요!');
+  };
+
+  const handleGoTransactions = () => {
+    if (accessToken) {
+      navigate('/transactions');
+      return;
+    }
+
+    alert('로그인을 해 주세요!');
+  };
+
   return (
     <Container>
       <div>
@@ -44,10 +65,10 @@ export default function HomePage() {
         </Title>
         <Buttons>
           <li>
-            <PrimaryButton type="button" onClick={() => navigate('/transfer')}>송금하기</PrimaryButton>
+            <PrimaryButton type="button" onClick={handleGoTransfer}>송금하기</PrimaryButton>
           </li>
           <li>
-            <PrimaryButton type="button" onClick={() => navigate('/transactions')}>거래내역조회</PrimaryButton>
+            <PrimaryButton type="button" onClick={handleGoTransactions}>거래내역조회</PrimaryButton>
           </li>
         </Buttons>
       </div>

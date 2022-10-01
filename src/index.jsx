@@ -14,7 +14,7 @@ const accessToken = JSON.parse(data);
 apiService.setAccessToken(accessToken);
 
 root.render((
-  <BrowserRouter>
+  <BrowserRouter basename="/makaobank-test">
     <App />
   </BrowserRouter>
 ));

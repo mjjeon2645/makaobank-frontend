@@ -1,5 +1,5 @@
 const config = {
-  apiBaseUrl: 'http://localhost:8000',
+  apiBaseUrl: 'https://makaobank-spring-mjjeon2645.herokuapp.com',
 };
 
 export default config;
